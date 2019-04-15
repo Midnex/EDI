@@ -1,6 +1,6 @@
 # Goal Parse EDI File to Excel, can be called from other programs such as ABI, and AMR_Util backup features.
 # Error detection will be added but less of a concern for now.
-# Customer uses non standard EDI files for some files.
+# Customer uses non standard EDI files for some elements.
 
 import csv, tkinter as tk, os
 from tkinter import filedialog

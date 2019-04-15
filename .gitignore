@@ -55,3 +55,4 @@
 *.xls
 *.xlsx
 *.zip
+.vscode/settings.json
