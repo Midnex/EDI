@@ -52,11 +52,6 @@ with open(x12_940_file,'r') as csv_in_file:
                 ISA15 = splitRow[15]            # Usage Indicator
                 ISA16 = splitRow[16]            # Component Element Separator
 
-                output_file.write('ISA for ' + x12_940_file.split('/')[-1] + '\n')
-                output_file.write('ID,Sender,ID,Receiver,Date,Time\n')
-                line_to_write = ISA05 + ',' + ISA06 + ',' + ISA07 + ',' + ISA08 + ',' + ISA09 + ',' + ISA10 + '\n\n'
-                output_file.write(line_to_write)
-
             # GS - Functional Group Header
             if 'GS' in splitRow[0]:
                 print('Processing GSLoop', gsCount)
@@ -71,10 +66,6 @@ with open(x12_940_file,'r') as csv_in_file:
                 GS06 = splitRow[6]              # Group Control Number
                 GS07 = splitRow[7]              # Responsible Agency Code
                 GS08 = splitRow[8]              # Version / Release / Industry Identifier Code
-
-                output_file.write('Header,SenderCode,ReceiverCode,Date\n')
-                line_to_write =  'GS,' + GS02 + ',' + GS03 + ',' + GS04 + '\n\n'
-                output_file.write(line_to_write)
 
             # ST - Transaction Set Header
             if 'ST' in splitRow[0]:
@@ -120,7 +111,7 @@ with open(x12_940_file,'r') as csv_in_file:
             # Item Detail
             if 'W04' in splitRow[0]:
                 if w04CountTotal == 0:
-                    output_file.write('EDI,Line,PO#,Customer,PO Date,UPC,Units,UoM\n')
+                    output_file.write('EDI Date,EDI,Line,PO#,Sender,Receiver,PO Date,UPC,Units,UoM,UPC,File\n')
                 w04CountTotal += int(splitRow[1])
                 print('Processing W04Loop')
 
@@ -133,7 +124,7 @@ with open(x12_940_file,'r') as csv_in_file:
                 W0408 = splitRow[8]             # Customer defined
                 W0409 = splitRow[9].replace('~', '') # Customer defined
 
-                line_to_write = ST01 + ',' + ST02 + ',' + W0602 + ',' + GS02 + ',' + W0603 + ',' + W0409 + ',' + W0401 + ',' + W0402 + '\n'
+                line_to_write =  GS04 + ',' + ST01 + ',' + ST02 + ',' + W0602 + ',' + GS02 + ',' + GS03 + ',' + W0603 + ',' + W0409 + ',' + W0401 + ',' + W0402 + ',' + W0403 + ',' + x12_940_file.split('/')[-1] + '\n'
                 output_file.write(line_to_write)
 
             # W03 to be implemented, not needed right now though present.
